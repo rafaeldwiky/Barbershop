@@ -78,7 +78,7 @@
                       <input type="text" name="username" class="form-control" id="yourUsername" required>
                       <div class="invalid-feedback">Please, enter your Username!</div>
                     </div>
-
+                    
                     <!-- <div class="col-12">
                       <label for="yourPhone" class="form-label">Your Phone</label>
                       <input type="number" name="phone" class="form-control" id="yourPhone" required>
