@@ -1,3 +1,53 @@
+<?php
+require 'koneksi.php';
+
+function buatIdPelanggan()
+{
+  $prefix = "PLG" . date("Ymd");
+  $randomNumber = str_pad(mt_rand(1, 9999), 4, '0', STR_PAD_LEFT);
+  return $prefix . $randomNumber;
+}
+
+function validasiNomorHp($phoneNumber)
+{
+  return preg_match('/^(0|\+62)[0-9]{9,12}$/', $phoneNumber);
+}
+
+// function validasiEmail($email)
+// {
+//   return filter_var($email, FILTER_VALIDATE_EMAIL);
+// }
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $namaPelanggan = $_POST["nama_pelanggan"];
+  $nohpPelanggan = $_POST["nohp_pelanggan"];
+  $emailPelanggan = $_POST["email_pelanggan"];
+  $username = $_POST["username"];
+  $password = $_POST["password"];
+
+  if (empty($namaPelanggan) || empty($nohpPelanggan) || empty($emailPelanggan) || empty($username) || empty($password)) {
+    echo "Harap lengkapi semua kolom.";
+  } elseif (!validasiNomorHp($nohpPelanggan)) {
+    echo "Nomor HP tidak valid. Harap masukkan nomor HP yang benar.";
+  }
+  // elseif (!validasiEmail($emailPelanggan)) {
+  //   echo "Email tidak valid. Harap masukkan alamat email yang benar.";
+  // } 
+  else {
+    $idPelanggan = buatIdPelanggan();
+    $query = "INSERT INTO pelanggan (id_pelanggan, level, nama_pelanggan, nohp_pelanggan, email_pelanggan, username, password) VALUES ('$idPelanggan', 'pelanggan', '$namaPelanggan', '$nohpPelanggan', '$emailPelanggan', '$username', '$password')";
+
+    if (mysqli_query($koneksi, $query)) {
+      header("Location: login.php?pesan=register_berhasil");
+      exit();
+    } else {
+      echo "Error: " . mysqli_error($koneksi);
+    }
+  }
+  // mysqli_close($koneksi);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,13 +81,6 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Updated: Sep 18 2023 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -62,70 +105,54 @@
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                    <p class="text-center small">Enter your personal details to create account</p>
+                    <h5 class="card-title text-center pb-0 fs-4">Registrasi Akun Baru</h5>
+                    <p class="text-center small">Isi formulir di bawah untuk mendaftar</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  <form class="row g-3 needs-validation" action="register.php" method="post" novalidate>
+
+                    <!-- Tambahkan input fields untuk nama, nomor HP, email, username, password, dll. -->
                     <div class="col-12">
-                      <label for="yourName" class="form-label">Your Name</label>
-                      <input type="text" name="name" class="form-control" id="yourName" required>
-                      <div class="invalid-feedback">Please, enter your Name!</div>
+                      <label for="namaPelanggan" class="form-label">Nama Lengkap</label>
+                      <input type="text" name="nama_pelanggan" class="form-control" required>
+                      <div class="invalid-feedback">Mohon masukkan nama lengkap.</div>
                     </div>
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Your Username</label>
-                      <input type="text" name="username" class="form-control" id="yourUsername" required>
-                      <div class="invalid-feedback">Please, enter your Username!</div>
-                    </div>
-                    
-                    <!-- <div class="col-12">
-                      <label for="yourPhone" class="form-label">Your Phone</label>
-                      <input type="number" name="phone" class="form-control" id="yourPhone" required>
-                      <div class="invalid-feedback">Please, enter your Phone!</div>
-                    </div> -->
-
-                    <div class="col-12">
-                      <label for="yourEmail" class="form-label">Your Email</label>
-                      <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="email" name="email" class="form-control" id="yourEmail" required>
-                        <div class="invalid-feedback">Please enter a valid Email adddress!</div>
-                      </div>
+                      <label for="nohpPelanggan" class="form-label">Nomor HP</label>
+                      <input type="text" name="nohp_pelanggan" class="form-control" required>
+                      <div class="invalid-feedback">Mohon masukkan nomor HP yang valid.</div>
                     </div>
 
                     <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
+                      <label for="emailPelanggan" class="form-label">Email</label>
+                      <input type="text" name="email_pelanggan" class="form-control" required>
+                      <div class="invalid-feedback">Mohon masukkan alamat email yang valid.</div>
                     </div>
 
-                    <!-- <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                        <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and
-                            conditions</a></label>
-                        <div class="invalid-feedback">You must agree before submitting.</div>
-                      </div>
-                    </div> -->
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                      <label for="username" class="form-label">Username</label>
+                      <input type="text" name="username" class="form-control" required>
+                      <div class="invalid-feedback">Mohon masukkan username.</div>
                     </div>
+
                     <div class="col-12">
-                      <p class="small mb-0">Already have an account? <a href="login.php">Log in</a></p>
+                      <label for="password" class="form-label">Password</label>
+                      <input type="password" name="password" class="form-control" required>
+                      <div class="invalid-feedback">Mohon masukkan password.</div>
+                    </div>
+
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit" name="submit">Register</button>
+                    </div>
+
+                    <div class="col-12">
+                      <p class="small mb-0">Sudah memiliki akun? <a href="login.php">Login</a></p>
                     </div>
                   </form>
 
                 </div>
               </div>
-
-              <!-- <div class="credits"> -->
-              <!-- All the links in the footer should remain intact. -->
-              <!-- You can delete the links only if you purchased the pro version. -->
-              <!-- Licensing information: https://bootstrapmade.com/license/ -->
-              <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-              <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
-              <!-- </div> -->
 
             </div>
           </div>

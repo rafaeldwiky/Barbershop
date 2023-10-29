@@ -1,18 +1,15 @@
 <?php
 
-require("koneksi.php");
-// $email = isset($_GET['user_fullname']) ? $_GET['user_fullname'] : "";
-
+require 'koneksi.php';
 session_start();
 
-if (!isset($_SESSION['id'])) {
-  $_SESSION['msg'] = 'anda harus login untuk mengakses halaman ini';
-  header('Location: login.php');
+if (!isset($_SESSION['username'])) {
+    // $_SESSION['msg'] = 'login dulu cuy';
+    header("location: login.php");
+    // exit();
 }
-$sesID = $_SESSION['id'];
-$sesName = $_SESSION['name'];
-$sesLvl = $_SESSION['level'];
-
+// $sesID = $_SESSION['id'];
+// $sesLvl = $_SESSION['level'];
 ?>
 
 <!DOCTYPE html>

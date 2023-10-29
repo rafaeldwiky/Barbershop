@@ -1,44 +1,60 @@
 <?php
-require('koneksi.php');
+require 'koneksi.php';
 session_start();
 
-if (isset($_POST['submit'])) {
-  $email = $_POST['txt_username'];
-  $pass = $_POST['txt_pass'];
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+  $username_or_email = $_POST['username_or_email'];
+  $password = $_POST['password'];
 
-  $emailCheck = mysqli_real_escape_string($koneksi, $email);
-  $passCheck = mysqli_real_escape_string($koneksi, $pass);
-
-  if (!empty(trim($email)) && !empty(trim($pass))) {
-
-    $query = "SELECT * FROM user_detail WHERE user_email = '$email'";
-    $result = mysqli_query($koneksi, $query);
-    $num = mysqli_num_rows($result);
-
-    while ($row = mysqli_fetch_array($result)) {
-      $id = $row['id'];
-      $userVal = $row['user_email'];
-      $passVal = $row['user_password'];
-      $userName = $row['user_fullname'];
-      $level = $row['level'];
-    }
-
-    if ($num != 0) {
-      if ($userVal == $email && $passVal == $pass) {
-
-        // header('Location: home.php');
-        $_SESSION['id'] = $id;
-        $_SESSION['name'] = $userName;
-        $_SESSION['level'] = $level;
-        header('Location: home.php');
-      } else {
-
-        $error = 'user atau password salah!!';
-      }
-    }
+  if (filter_var($username_or_email, FILTER_VALIDATE_EMAIL)) {
+    $field = 'email_admin';
+    $table = 'admin_barber';
   } else {
+    $field = 'username_admin';
+    $table = 'admin_barber';
+  }
 
-    $error = 'Data tidak boleh kosong !!';
+  $query = "SELECT * FROM $table WHERE $field='$username_or_email' AND password_admin='$password'";
+  $result = mysqli_query($koneksi, $query);
+
+  if ($result && mysqli_num_rows($result) > 0) {
+    // Login sebagai admin
+    $row = mysqli_fetch_assoc($result);
+    $_SESSION['id'] = $row['id_admin'];
+    $_SESSION['username'] = $row['username_admin'];
+    $_SESSION['level'] = "admin";
+    header("location: home.php");
+    exit();
+  } else {
+    if (filter_var($username_or_email, FILTER_VALIDATE_EMAIL)) {
+      $field = 'email_pelanggan';
+      $table = 'pelanggan';
+    } else {
+      $field = 'username';
+      $table = 'pelanggan';
+    }
+    $query = "SELECT * FROM $table WHERE $field='$username_or_email' AND password='$password'";
+    $result = mysqli_query($koneksi, $query);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+      // Login sebagai pelanggan
+      $row = mysqli_fetch_assoc($result);
+      $_SESSION['id'] = $row['id_pelanggan'];
+      $_SESSION['username'] = $row['username'];
+      $_SESSION['level'] = "pelanggan";
+
+      // if (isset($_POST['remember_me'])) {
+      //   // Set cookie dengan waktu kedaluwarsa 30 hari (30 * 24 * 60 * 60 detik)
+      //   setcookie('username', $username_or_email, time() + 30 * 24 * 60 * 60, '/');
+      //   setcookie('password', $password, time() + 30 * 24 * 60 * 60, '/');
+      // }
+      header("location: tempat_landing.html");
+      exit();
+    } else {
+      $_SESSION['error_message'] = 'Masukkan username atau email dan password dengan benar.';
+      header("location: login.php");
+      exit();
+    }
   }
 }
 ?>
@@ -76,13 +92,6 @@ if (isset($_POST['submit'])) {
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Updated: Sep 18 2023 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -107,52 +116,55 @@ if (isset($_POST['submit'])) {
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
-                    <p class="text-center small">Enter your username & password to login</p>
+                    <h5 class="card-title text-center pb-0 fs-4">Login ke akunmu</h5>
+                    <p class="text-center small">masukkan email/username dan password untuk login</p>
                   </div>
-
+                  <?php
+                  if (isset($_GET['pesan']) && $_GET['pesan'] == 'register_berhasil') {
+                    echo "Register berhasil, silahkan login.";
+                  }
+                  ?>
                   <form class="row g-3 needs-validation" action="login.php" method="post" novalidate>
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
+                      <label for="yourUsernameOrEmail" class="form-label">Username atau Email</label>
                       <div class="input-group has-validation">
-                        <!-- <span class="input-group-text" id="inputGroupPrepend">@</span> -->
-                        <input type="text" name="txt_username" class="form-control" required>
-                        <div class="invalid-feedback">Please enter your username.</div>
+                        <input type="text" name="username_or_email" class="form-control" required>
+                        <div class="invalid-feedback">mohon masukkan email atau username kamu</div>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="txt_pass" class="form-control" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
+                      <input type="password" name="password" class="form-control" required>
+                      <div class="invalid-feedback">mohon masukkan password kamu</div>
                     </div>
 
-                    <!-- <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Remember me</label>
-                      </div>
-                    </div> -->
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit" name="submit">Login</button>
                     </div>
+
                     <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="register.php">Create an account</a></p>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="remember_me" value="true" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <p class="small mb-0">belum memiliki akun? <a href="register.php">daftar</a></p>
                     </div>
                   </form>
+                  <?php
+                  // session_start();
+                  if (isset($_SESSION['error_message'])) {
+                    echo '<p class="text-danger">' . $_SESSION['error_message'] . '</p>';
+                    unset($_SESSION['error_message']);
+                  }
+                  ?>
 
                 </div>
               </div>
-
-              <!-- <div class="credits"> -->
-              <!-- All the links in the footer should remain intact. -->
-              <!-- You can delete the links only if you purchased the pro version. -->
-              <!-- Licensing information: https://bootstrapmade.com/license/ -->
-              <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-              <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
-              <!-- </div> -->
-
             </div>
           </div>
         </div>
