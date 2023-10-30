@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
       //   setcookie('username', $username_or_email, time() + 30 * 24 * 60 * 60, '/');
       //   setcookie('password', $password, time() + 30 * 24 * 60 * 60, '/');
       // }
-      header("location: tempat_landing.html");
+      header("location: landing page.php");
       exit();
     } else {
       $_SESSION['error_message'] = 'Masukkan username atau email dan password dengan benar.';
