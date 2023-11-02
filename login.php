@@ -43,11 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
       $_SESSION['username'] = $row['username'];
       $_SESSION['level'] = "pelanggan";
 
-      // if (isset($_POST['remember_me'])) {
-      //   // Set cookie dengan waktu kedaluwarsa 30 hari (30 * 24 * 60 * 60 detik)
-      //   setcookie('username', $username_or_email, time() + 30 * 24 * 60 * 60, '/');
-      //   setcookie('password', $password, time() + 30 * 24 * 60 * 60, '/');
-      // }
       header("location: landing_page.html");
       exit();
     } else {

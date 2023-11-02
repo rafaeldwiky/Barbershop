@@ -1,16 +1,18 @@
 <?php
-
 require 'koneksi.php';
 session_start();
 
-if (!isset($_SESSION['username'])) {
-    $_SESSION['msg'] = 'login dulu cuy';
+if (!isset($_SESSION['id'])) {
+    $_SESSION['msg'] = 'Anda harus login terlebih dahulu!';
     header("location: login.php");
-    // exit();
+    exit();
 }
-// $sesID = $_SESSION['id'];
-// $sesLvl = $_SESSION['level'];
+if (isset($_SESSION['msg'])) {
+    echo $_SESSION['msg'];
+    unset($_SESSION['msg']);
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -91,7 +93,7 @@ if (!isset($_SESSION['username'])) {
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="tables.php">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Tables</span></a>
             </li>
@@ -648,13 +650,6 @@ if (!isset($_SESSION['username'])) {
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
-                    </div>
-                </div>
-            </footer>
             <!-- End of Footer -->
 
         </div>
