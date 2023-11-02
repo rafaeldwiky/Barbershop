@@ -1,3 +1,7 @@
+<?php
+require 'koneksi.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,8 +20,8 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -77,7 +81,7 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="tables.php">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Tables</span></a>
             </li>
@@ -304,15 +308,12 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
+                        <!-- <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                        </div>
+                        </div> -->
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -795,6 +796,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
+
                             </div>
                         </div>
                     </div>
@@ -806,13 +808,6 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
             <!-- End of Footer -->
 
         </div>
