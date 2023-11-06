@@ -14,6 +14,7 @@ require 'koneksi.php';
     <meta name="author" content="">
 
     <title>Dashboard - Sadimo Barbershop</title>
+    <link href="assets/img/favicon.jpg" rel="icon">
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -314,6 +315,9 @@ require 'koneksi.php';
                         </div> -->
                         <div class="card-body">
                             <div class="table-responsive">
+                                <div class="pb-3">
+                                    <a href='' class="btn btn-primary">+ Tambah Data</a>
+                                </div>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
@@ -323,13 +327,15 @@ require 'koneksi.php';
                                             <th>Email</th>
                                             <th>Username</th>
                                             <th>Password</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <?php
-                                    $no = 1;
-                                    $ambildata = mysqli_query($koneksi, "SELECT `id_pelanggan`, `nama_pelanggan`, `nohp_pelanggan`, `email_pelanggan`, `username`, `password` FROM `pelanggan`");
-                                    while ($tampil = mysqli_fetch_assoc($ambildata)) {
-                                        echo "
+                                    <tbody>
+                                        <?php
+                                        $no = 1;
+                                        $ambildata = mysqli_query($koneksi, "SELECT `id_pelanggan`, `nama_pelanggan`, `nohp_pelanggan`, `email_pelanggan`, `username`, `password` FROM `pelanggan`");
+                                        while ($tampil = mysqli_fetch_assoc($ambildata)) {
+                                            echo "
                                         <tr>
                                             <td>{$tampil['id_pelanggan']}</td>
                                             <td>{$tampil['nama_pelanggan']}</td>
@@ -337,12 +343,16 @@ require 'koneksi.php';
                                             <td>{$tampil['email_pelanggan']}</td>
                                             <td>{$tampil['username']}</td>
                                             <td>{$tampil['password']}</td>
+                                            <td>
+                                                <a href='' class=\"btn btn-warning btn-sm\">Edit</a>
+                                                <a href='' class=\"btn btn-danger btn-sm\">Del</a>
+                                            </td>
                                         </tr>";
-                                        $no++;
-                                    }
-                                    ?>
+                                            $no++;
+                                        }
+                                        ?>
+                                    </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div>
