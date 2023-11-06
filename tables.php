@@ -14,6 +14,7 @@ require 'koneksi.php';
     <meta name="author" content="">
 
     <title>Dashboard - Sadimo Barbershop</title>
+    <link href="assets/img/favicon.jpg" rel="icon">
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -314,6 +315,9 @@ require 'koneksi.php';
                         </div> -->
                         <div class="card-body">
                             <div class="table-responsive">
+                                <div class="pb-3">
+                                    <a href='' class="btn btn-primary">+ Tambah Data</a>
+                                </div>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>

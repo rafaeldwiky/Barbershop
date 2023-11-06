@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
       $_SESSION['username'] = $row['username'];
       $_SESSION['level'] = "pelanggan";
 
-      header("location: landing_page.html");
+      header("location: landing_page.php");
       exit();
     } else {
       $_SESSION['error_message'] = 'Masukkan username atau email dan password dengan benar.';
