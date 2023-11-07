@@ -56,10 +56,20 @@ require 'koneksi.php';
                     <i class="fa-solid fa-gauge-high"></i>
                     <span>Dashboard</span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="pelanggan.php">
+                    <i class="fa-solid fa-user-clock"></i>
+                    <span>Pelanggan</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="karyawan.php">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span>Karyawan</span></a>
+            </li>
             <li class="nav-item active">
-                <a class="nav-link" href="transaksi.php">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span>Transaksi</span></a>
+                <a class="nav-link" href="cashflow.php">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                    <span>Cashflow</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="daftar_harga.php">
@@ -67,9 +77,14 @@ require 'koneksi.php';
                     <span>Daftar Harga</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="pelanggan.php">
-                    <i class="fa-solid fa-user-clock"></i>
-                    <span>Pelanggan</span></a>
+                <a class="nav-link" href="booking.php">
+                    <i class="fa-solid fa-calendar-plus"></i>
+                    <span>Booking</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="kasir.php">
+                    <i class="fa-solid fa-cash-register"></i>
+                    <span>Kasir</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="laporan.php">
@@ -77,12 +92,6 @@ require 'koneksi.php';
                     <span>Laporan</span></a>
             </li>
 
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.php">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -304,9 +313,30 @@ require 'koneksi.php';
                 <!-- Page Heading -->
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Transaksi</h1>
+                        <h1 class="h3 mb-0 text-gray-800">cashflow</h1>
                     </div>
                 </div>
+
+                <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">Select "Logout" below if you are ready to end your current session.
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                <a class="btn btn-primary" href="login.php">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Bootstrap core JavaScript-->
                 <script src="vendor/jquery/jquery.min.js"></script>
                 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

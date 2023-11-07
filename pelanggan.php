@@ -57,32 +57,40 @@ require 'koneksi.php';
                     <i class="fa-solid fa-gauge-high"></i>
                     <span>Dashboard</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="transaksi.php">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span>Transaksi</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="daftar_harga.php">
-                    <i class="fa-solid fa-clipboard-list"></i>
-                    <span>Daftar Harga</span></a>
-            </li>
             <li class="nav-item active">
                 <a class="nav-link" href="pelanggan.php">
                     <i class="fa-solid fa-user-clock"></i>
                     <span>Pelanggan</span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="karyawan.php">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span>Karyawan</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="cashflow.php">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                    <span>Cashflow</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="daftar_harga.php">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                    <span>Daftar Harga</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="booking.php">
+                    <i class="fa-solid fa-calendar-plus"></i>
+                    <span>Booking</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="kasir.php">
+                    <i class="fa-solid fa-cash-register"></i>
+                    <span>Kasir</span></a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="laporan.php">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <span>Laporan</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.php">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
             </li>
 
             <!-- Divider -->
@@ -391,7 +399,7 @@ require 'koneksi.php';
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="login.php">Logout</a>
                 </div>
             </div>
         </div>

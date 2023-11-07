@@ -81,12 +81,12 @@ require 'koneksi.php';
                     <i class="fa-solid fa-calendar-plus"></i>
                     <span>Booking</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="kasir.php">
                     <i class="fa-solid fa-cash-register"></i>
                     <span>Kasir</span></a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="laporan.php">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <span>Laporan</span></a>
@@ -313,7 +313,7 @@ require 'koneksi.php';
                 <!-- Page Heading -->
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Laporan</h1>
+                        <h1 class="h3 mb-0 text-gray-800">kasir</h1>
                     </div>
                 </div>
 

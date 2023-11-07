@@ -71,9 +71,19 @@ if (isset($_SESSION['msg'])) {
                     <span>Dashboard</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="transaksi.php">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span>Transaksi</span></a>
+                <a class="nav-link" href="pelanggan.php">
+                    <i class="fa-solid fa-user-clock"></i>
+                    <span>Pelanggan</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="karyawan.php">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span>Karyawan</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="cashflow.php">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                    <span>Cashflow</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="daftar_harga.php">
@@ -81,9 +91,14 @@ if (isset($_SESSION['msg'])) {
                     <span>Daftar Harga</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="pelanggan.php">
-                    <i class="fa-solid fa-user-clock"></i>
-                    <span>Pelanggan</span></a>
+                <a class="nav-link" href="booking.php">
+                    <i class="fa-solid fa-calendar-plus"></i>
+                    <span>Booking</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="kasir.php">
+                    <i class="fa-solid fa-cash-register"></i>
+                    <span>Kasir</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="laporan.php">
@@ -91,12 +106,6 @@ if (isset($_SESSION['msg'])) {
                     <span>Laporan</span></a>
             </li>
 
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.php">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -664,7 +673,7 @@ if (isset($_SESSION['msg'])) {
     </a>
 
     <!-- Logout Modal-->
-    <!-- <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -681,7 +690,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
