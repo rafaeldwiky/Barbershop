@@ -33,12 +33,12 @@ if (!isset($_SESSION['id_penggunaamdin'])) {
 
     <!-- Custom styles for this template -->
     <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
-    <!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/jquery-3.6.4.min.js">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
 
     <!-- Custom styles for this page -->
-    <!-- <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"> -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
