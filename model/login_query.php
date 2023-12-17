@@ -9,9 +9,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $emailUsername = mysqli_real_escape_string($koneksi, $emailUsername);
     $password = mysqli_real_escape_string($koneksi, $password);
 
-    $query = "SELECT p.*, a.nama AS admin_nama
+    $query = "SELECT p.*, a.nama AS admin_nama, k.nama AS karyawan_nama
               FROM pengguna p
               LEFT JOIN admin_barber a ON p.id_pengguna = a.id_pengguna
+              LEFT JOIN karyawan_akses k ON p.id_pengguna = k.id_pengguna
               WHERE (p.email = '$emailUsername' OR p.username = '$emailUsername') AND p.password = '$password'";
 
     $result = mysqli_query($koneksi, $query);
@@ -24,12 +25,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($level == 1) {
                 $_SESSION['namaadmin'] = $row['admin_nama'];
                 $_SESSION['id_penggunaamdin'] = $row['id_pengguna'];
-                header("Location: ../index.php");
+                $_SESSION['foto_admin'] = $row['foto_admin'];
+                header("Location: ../admin/index.php");
             } elseif ($level == 2) {
                 $_SESSION['nama'] = $row['nama'];
                 $_SESSION['id_pengguna'] = $row['id_pengguna'];
                 $_SESSION['nohp'] = $row['nohp'];
-                header("Location: ../web/booking/hair_artist.php");
+                header("Location: ../public/booking/hair_artist.php");
+            } elseif ($level == 3) {
+                $_SESSION['nama_employee'] = $row['karyawan_nama'];
+                $_SESSION['id_penggunaempl'] = $row['id_pengguna'];
+                header("Location: ../karyawan/index.php");
             } else {
                 echo "Level pengguna tidak valid.";
             }

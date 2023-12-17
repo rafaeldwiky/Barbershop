@@ -1,281 +1,401 @@
 <?php
-include 'config/koneksi.php';
-session_start();
-
-if (!isset($_SESSION['id_penggunaamdin'])) {
-    header("Location: auth/login.php");
-    exit();
-}
-
+require 'config/koneksi.php';
 ?>
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html class="no-js" lang="zxx">
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> Sadimo BarberShop </title>
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" href="assets/static/images/logo/logo_kecil.png" type="image/x-icon">
 
-    <title>Dashboard - Sadimo Barbershop</title>
-    <link href="assets/img/logo_kecil.png" rel="icon">
-
-    <!-- Custom fonts for this template -->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Custom styles for this template -->
-    <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/jquery-3.6.4.min.js">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
-
-    <!-- Custom styles for this page -->
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!-- CSS here -->
+    <link rel="stylesheet" href="public/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="public/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="public/assets/css/slicknav.css">
+    <link rel="stylesheet" href="public/assets/css/flaticon.css">
+    <link rel="stylesheet" href="public/assets/css/gijgo.css">
+    <link rel="stylesheet" href="public/assets/css/animate.min.css">
+    <link rel="stylesheet" href="public/assets/css/animated-headline.css">
+    <link rel="stylesheet" href="public/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="public/assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="public/assets/css/themify-icons.css">
+    <link rel="stylesheet" href="public/assets/css/slick.css">
+    <link rel="stylesheet" href="public/assets/css/nice-select.css">
+    <link rel="stylesheet" href="public/assets/css/style.css">
+    <link rel="stylesheet" href="public/assets/css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 
-<body id="page-top">
-
-    <div id="wrapper">
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-dark sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <div class="sidebar-brand d-flex align-items-center justify-content-center">
-                <img src="assets/img/logo_kecil.png" alt="logo_null">
-                <div class="sidebar-brand-text mx-3">SADIMO ADMIN</div>
-            </div>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Divider dengan warna putih dan ketebalan tertentu -->
-            <hr class="custom-divider">
-
-
-
-
-            <!-- sidebar -->
-            <li class="nav-item active" id="dashboard">
-                <a class="nav-link" href="#home" onclick="showMain()"><i class="fa-solid fa-gauge-high"></i>
-                    <span>Dashboard</span></a>
-            </li>
-            <li class="nav-item" id="pelanggan">
-                <a class="nav-link" href="#pelanggan" onclick="showPelanggan()"><i class="fa-solid fa-user-clock"></i>
-                    <span>Pelanggan</span></a>
-            </li>
-            <li class="nav-item" id="karyawan">
-                <a class="nav-link" href="#karyawan" onclick="showKaryawan()"><i class="fa-solid fa-user-tie"></i>
-                    <span>Karyawan</span></a>
-            </li>
-            <li class="nav-item" id="cashflow">
-                <a class="nav-link" href="#cashflow" onclick="showCashflow()"><i
-                        class="fa-solid fa-money-bill-wave"></i>
-                    <span>Cashflow</span></a>
-            </li>
-            <li class="nav-item" id="layanan">
-                <a class="nav-link" href="#layanan" onclick="showLayanan()"><i class="fa-solid fa-clipboard-list"></i>
-                    <span>layanan</span></a>
-            </li>
-            <li class="nav-item" id="booking">
-                <a class="nav-link" href="#booking" onclick="showBooking()"><i class="fa-solid fa-calendar-plus"></i>
-                    <span>Booking</span></a>
-            </li>
-            <li class="nav-item" id="kasir">
-                <a class="nav-link" href="#kasir" onclick="showKasir()"><i class="fa-solid fa-cash-register"></i>
-                    <span>Kasir</span></a>
-            </li>
-            <li class="nav-item" id="kalender">
-                <a class="nav-link" href="#kalender" onclick="showKalender()"><i class="fa-solid fa-calendar-days"></i>
-                    <span>Kalender</span></a>
-            </li>
-            <!-- sidebar -->
-
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
-        <!-- sidebar end -->
-
-        <div id="content-wrapper" class="d-flex flex-column">
-            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                <!-- Sidebar Toggle (Topbar) -->
-                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                    <i class="fa fa-bars"></i>
-                </button>
-
-                <!-- Topbar header -->
-                <div class="d-flex align-items-center justify-content-between mb-9">
-                    <h1 id="pageTitle" class="h3 mb-0 text-gray-800">Dashboard</h1>
-                </div>
-                <!-- Topbar Navbar -->
-                <ul class="navbar-nav ml-auto">
-                    <!-- Nav Item - Alerts -->
-                    <li class="nav-item dropdown no-arrow mx-1">
-                        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-bell fa-fw"></i>
-                            <!-- Counter - Alerts -->
-                            <span class="badge badge-danger badge-counter">+</span>
-                        </a>
-                        <!-- Dropdown - Alerts -->
-                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                            aria-labelledby="alertsDropdown">
-                            <h6 class="dropdown-header">
-                                Notifikasi!
-                            </h6>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="mr-3">
-                                    <div class="icon-circle bg-primary">
-                                        <i class="fa-solid fa-calendar-plus text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="small text-gray-500">23 November 2023 23:29</div>
-                                    <span class="font-weight-bold">Pelanggan dengan nama Andini melakukan Booking</span>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
-
-
-                    <!-- Nav Item - Alerts -->
-
-                    <div class="topbar-divider d-none d-sm-block"></div>
-
-                    <!-- Nav Item - User Information -->
-                    <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                <?php echo $_SESSION['namaadmin']; ?>
-                            </span>
-                            <img class="img-profile rounded-circle" src="assets/img/admin-profile.png">
-                        </a>
-
-                        <!-- Dropdown - User Information -->
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                            aria-labelledby="userDropdown">
-                            <a id="" class="dropdown-item" href="#admin" onclick="showAdmin()">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                account
-                            </a>
-                            <script>
-                                function setActiveNavItem(navItemId) {
-                                    var navItems = document.querySelectorAll('.nav-item');
-                                    navItems.forEach(function (navItem) {
-                                        navItem.classList.remove('active');
-                                    });
-                                }
-
-                                function changePageTitle(title) {
-                                    // console.log('Changing page title to:', title);
-                                    document.getElementById('pageTitle').innerText = title;
-                                }
-
-
-                                function loadContent(url, navItemId, pageTitle) {
-                                    $.ajax({
-                                        url: url,
-                                        method: "post",
-                                        data: { record: 1 },
-                                        success: function (data) {
-                                            setActiveNavItem(navItemId);
-                                            changePageTitle(pageTitle);
-
-                                            $('#content').html(data);
-                                        }
-                                    });
-                                }
-
-                                function showAdmin() {
-                                    loadContent("./view/admin.php", "", "Admin");
-                                    // window.location.hash = "#home";
-                                }
-                            </script>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
-
-            <!-- Main Content -->
-            <div id="content">
-                <!-- tempat content -->
-            </div>
-            <!-- Main Content -->
-
-        </div>
-
-    </div>
-
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">yakin untuk Logout?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Klik "Logout" untuk keluar</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="auth/logout.php">Logout</a>
+<body>
+    <!-- ? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="public/assets/img/logo/loder.png" alt="">
                 </div>
             </div>
         </div>
     </div>
+    <!-- Preloader Start -->
+    <header>
+        <!--? Header Start -->
+        <div class="header-area header-transparent pt-20">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <!-- Logo -->
+                        <div class="col-xl-2 col-lg-2 col-md-1">
+                            <div class="logo">
+                                <img src="public/assets/img/logo/logofixsbgt.png" alt="">
+                            </div>
+                        </div>
+                        <div class="col-xl-10 col-lg-10 col-md-10">
+                            <div class="menu-main d-flex align-items-center justify-content-end">
+                                <!-- Main-menu -->
+                                <div class="main-menu f-right d-none d-lg-block">
+                                    <nav class="navbar">
+                                        <ul>
+                                            <li><a href="#section1">About</a></li>
+                                            <li><a href="#section2">Service</a></li>
+                                            <li><a href="#section3">Pricelist</a></li>
+                                            <li><a href="#section4">Features</a></li>
+                                            <li><a href="#section5">Contact</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <div class="header-right-btn f-right d-none d-lg-block ml-30">
+                                    <a href="public/booking/model/option_toko.php" class="btn header-btn">Booking</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Mobile Menu -->
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+    </header>
+    <main>
+        <!--? slider Area Start-->
+        <div class="slider-area position-relative fix">
+            <div class="slider-active">
+                <!-- Single Slider -->
+                <div class="single-slider slider-height d-flex align-items-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-8 col-lg-9 col-md-11 col-sm-10">
+                                <div class="hero__caption">
+                                    <span data-animation="fadeInUp" data-delay="0.2s">dengan Sadimo Barbershop</span>
+                                    <h1 data-animation="fadeInUp" data-delay="0.5s">Buat penampilanmu lebih menarik
+                                        bersama kami</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Single Slider -->
+                <div class="single-slider slider-height d-flex align-items-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-8 col-lg-9 col-md-11 col-sm-10">
+                                <div class="hero__caption">
+                                    <span data-animation="fadeInUp" data-delay="0.2s">dengan Sadimo Barbershop</span>
+                                    <h1 data-animation="fadeInUp" data-delay="0.5s">Buat penampilanmu lebih menarik
+                                        bersama kami</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- stroke Text -->
+            <div class="stock-text">
+                <h2>Get More confident</h2>
+                <h2>Get More confident</h2>
+            </div>
+            <!-- Arrow -->
+            <div class="thumb-content">
+            </div>
+        </div>
+        </div>
+        <!-- slider Area End-->
+        <!--? About Area Start -->
+        <section id="section1" class="section"></section>
+        <section class="about-area section-padding30 position-relative">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-11">
+                        <!-- about-img -->
+                        <div class="about-img ">
+                            <img src="public/assets/img/logo/profile.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="about-caption">
+                            <!-- Section Tittle -->
+                            <div class="section-tittle section-tittle3 mb-35">
+                                <span>Tentang kami</span>
+                                <h2>Anak muda berbakat yang memiliki pengalaman dalam potong rambut</h2>
+                            </div>
+                            <p class="mb-30 pera-bottom">Sadimo BarberShop terbentuk berawal dari salah satu anak muda
+                                yang suka memotong rambut temannya, sampai dia ikut bekerja di salon. Akhirnya anak muda
+                                ini mampu mendirikan barbershop yang cukup terkenal dan berkembang pesat di area kampus
+                                UNEJ yang dia beri nama Sadimo BarberShop. Pasang surut usaha cukurnya sudah dia alami.
+                                Dan kini Sadimo BarberShop ini sudah memiliki beberapa cabang di beberapa tempat.</p>
+                            <p class="pera-top mb-50"></p>
+                            <img src="public/assets/img/gallery/signature.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- About Shape -->
+            <div class="about-shape">
+                <img src="public/assets/img/gallery/about-shape.png" alt="">
+            </div>
+        </section>
+        <!-- About-2 Area End -->
+        <!--? Services Area Start -->
+        <section id="section2" class="section"></section>
+        <section class="service-area pb-170">
+            <div class="container">
+                <!-- Section Tittle -->
+                <div class="row d-flex justify-content-center">
+                    <div class="col-xl-7 col-lg-8 col-md-11 col-sm-11">
+                        <div class="section-tittle text-center mb-90">
+                            <span>Pelayanan Profesional</span>
+                            <h2>Pelayanan terbaik tersedia untuk anda</h2>
+                        </div>
+                    </div>
+                </div>
+                <!-- Section caption -->
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="services-caption text-center mb-30">
+                            <div class="service-icon">
+                                <i class="fas fa-cut"></i>
+                            </div>
+                            <div class="service-cap">
+                                <h4><a href="#">Stylish Hair Cut</a></h4>
+                                <p>Merapikan rambutmu dengan berbagai macam model rambut yang akan mebuat penampilanmu
+                                    lebih menarik</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="services-caption active text-center mb-30">
+                            <div class="service-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="service-cap">
+                                <h4><a href="#">Pomade Shop</a></h4>
+                                <p>Menyediakan berbagai macam pomade atau obat untuk membuat rambut semakin rapi dan
+                                    tidak lepek</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="services-caption text-center mb-30">
+                            <div class="service-icon">
+                                <i class="flaticon-clock"></i>
+                            </div>
+                            <div class="service-cap">
+                                <h4><a href="#">Breard Style</a></h4>
+                                <p>Merapikan kumis dan juga janggutmu yang akan membuat penampilanmu lebih menarik lagi
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Services Area End -->
+        <!-- Best Pricing Area Start -->
+        <section id="section3" class="section"></section>
+        <div class="best-pricing section-padding2 position-relative">
+            <div class="container">
+                <div class="row justify-content-end">
+                    <div class="col-xl-7 col-lg-7">
+                        <div class="section-tittle mb-50">
+                            <span>Harga terbaik kami</span>
+                            <h2>Menawarkan harga terbaik<br> di antara seluruh barbershop di kota ini</h2>
+                        </div>
+                        <!-- Pricing  -->
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="pricing-list">
+                                    <?php
+                                    $query = "SELECT nama_layanan, harga_layanan FROM layanan";
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+                                    $result = mysqli_query($koneksi, $query);
 
-    <!-- Core plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        $nama_layanan = $row["nama_layanan"];
+                                        $harga_layanan = $row["harga_layanan"];
+                                        ?>
+                                        <ul>
+                                            <li>
+                                                <?php echo $nama_layanan ?>
+                                                <span>
+                                                    <?php echo $harga_layanan ?>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- pricing img -->
+            <div class="pricing-img">
+                <img class="pricing-img1" src="public/assets/img/logo/main1.jpg" alt="">
+                <img class="pricing-img2" src="public/assets/img/gallery/pricing2.png" alt="">
+            </div>
+        </div>
+        <!-- Best Pricing Area End -->
+        <!--? Gallery Area Start -->
+        <section id="section4" class="section"></section>
+        <div class="gallery-area section-padding30">
+            <div class="container">
+                <!-- Section Tittle -->
+                <div class="row justify-content-center">
+                    <div class="col-xl-6 col-lg-7 col-md-9 col-sm-10">
+                        <div class="section-tittle text-center mb-100">
+                            <span>Gallery</span>
+                            <h2>beberapa foto dari Sadimo BarberShop</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="box snake mb-30">
+                            <div class="gallery-img "
+                                style="background-image: url(public/assets/img/logo/photo1.heic);">
+                            </div>
+                            <div class="overlay"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-6 col-sm-6">
+                        <div class="box snake mb-30">
+                            <div class="gallery-img "
+                                style="background-image: url(public/assets/img/logo/photo2.webp);">
+                            </div>
+                            <div class="overlay"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-6 col-sm-6">
+                        <div class="box snake mb-30">
+                            <div class="gallery-img "
+                                style="background-image: url(public/assets/img/logo/photo\ 6.jpg);">
+                            </div>
+                            <div class="overlay"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="box snake mb-30">
+                            <div class="gallery-img "
+                                style="background-image: url(public/assets/img/logo/photo4.heic);">
+                            </div>
+                            <div class="overlay"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Gallery Area End -->
+    </main>
+    <footer>
+        <!--? Footer Start-->
+        <section id="section5" class="section"></section>
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-7 col-md-9 col-sm-10">
+                <div class="section-tittle text-center mb-100">
+                    <h1>Contact Kami</h1>
+                    <img src="public/assets/img/logo/logofixsbgt.png">
+                </div>
+            </div>
+        </div>
+        <div class="footerContainer">
+            <div class="socialIcons">
+                <a
+                    href="https://mail.google.com/mail/u/0/?su=Sadimo+Barber+Shop&body=Sadimo+Barber+Shop+di+Google+Maps%0Ahttps://maps.app.goo.gl/7LC13arNYoipnhc7A&hl=id&gl=id&url=https://maps.app.goo.gl/7LC13arNYoipnhc7A&fs=1&tf=cm"><i
+                        class="material-icons">email</i></a>
+                <a
+                    href="https://www.instagram.com/sadimobarbershop/?utm_source=ig_web_button_share_sheet&igshid=OGQ5ZDc2ODk2ZA=="><i
+                        class="fa-brands fa-instagram"></i></a>
+                <a href="https://maps.app.goo.gl/Ng3Zr9jAFX4vzDZTA"><i class="fas fa-map-marker"></i></a>
+                <a
+                    href="https://l.instagram.com/?u=https%3A%2F%2Fyoutube.com%2Fchannel%2FUCSBu66ffovGxYCsKyucvyAw&e=AT1zlStweRguJX-oW_V6p3jC6JkI74ooDrCi3Cw9OD4t5ucNaEjQ_S13TsIOyf5I3cc0nluD4HXrCgwKKKpwYPS8HWBDcKrm"><i
+                        class="fa-brands fa-youtube"></i></a>
+            </div>
 
-    <!-- Custom scripts for all pages -->
-    <script src="assets/js/sb-admin-2.min.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script type="text/javascript" src="assets/js/sidebar.js"></script>
+        </div>
+        <div class="footerBottom">
+            <p>Copyright &copy;2023; Designed by <span class="designer">KelompokC3</span></p>
+        </div>
+        <!-- Footer End-->
+    </footer>
+    <!-- Scroll Up -->
+    <div id="back-top">
+        <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+    </div>
 
-    <!-- Page level plugins -->
-    <!-- <script src="vendor/chart.js/Chart.min.js"></script> -->
-    <!-- <script src="vendor/datatables/jquery.dataTables.min.js"></script> -->
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- JS here -->
 
-    <!-- Page level custom scripts -->
-    <!-- <script src="assets/js/demo/chart-area-demo.js"></script>
-    <script src="assets/js/demo/chart-pie-demo.js"></script>
-    <script src="assets/js/demo/datatables-demo.js"></script> -->
+    <script src="public/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="public/assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="public/assets/js/popper.min.js"></script>
+    <script src="public/assets/js/bootstrap.min.js"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="public/assets/js/jquery.slicknav.min.js"></script>
 
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="public/assets/js/owl.carousel.min.js"></script>
+    <script src="public/assets/js/slick.min.js"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="public/assets/js/wow.min.js"></script>
+    <script src="public/assets/js/animated.headline.js"></script>
+    <script src="public/assets/js/jquery.magnific-popup.js"></script>
+
+    <!-- Date Picker -->
+    <script src="public/assets/js/gijgo.min.js"></script>
+    <!-- Nice-select, sticky -->
+    <script src="public/assets/js/jquery.nice-select.min.js"></script>
+    <script src="public/assets/js/jquery.sticky.js"></script>
+
+    <!-- counter , waypoint,Hover Direction -->
+    <script src="public/assets/js/jquery.counterup.min.js"></script>
+    <script src="public/assets/js/waypoints.min.js"></script>
+    <script src="public/assets/js/jquery.countdown.min.js"></script>
+    <script src="public/assets/js/hover-direction-snake.min.js"></script>
+
+    <!-- contact js -->
+    <script src="public/assets/js/contact.js"></script>
+    <script src="public/assets/js/jquery.form.js"></script>
+    <script src="public/assets/js/jquery.validate.min.js"></script>
+    <script src="public/assets/js/mail-script.js"></script>
+    <script src="public/assets/js/jquery.ajaxchimp.min.js"></script>
+
+    <!-- Jquery Plugins, main Jquery -->
+    <script src="public/assets/js/plugins.js"></script>
+    <script src="public/assets/js/main.js"></script>
 
 </body>
 

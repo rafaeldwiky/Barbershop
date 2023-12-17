@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (mysqli_query($koneksi, $query_pelanggan)) {
             mysqli_commit($koneksi);
-            echo "Registrasi berhasil. <a href='login.php'>Login</a>";
+            echo "Registrasi berhasil. <a href='auth-login.php'>Login</a>";
         } else {
             mysqli_rollback($koneksi);
             echo "Error: " . mysqli_error($koneksi);
